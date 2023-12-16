@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <h1 style="text-align:center;font-family:sans-serif">Current Reservations</h1>
+    <div class="container">
+        {% for booking in bookings %}
+            <div class="tick" style="font-size:13px;color:rgb(12, 12, 12);padding:18px;padding-left:40px;">
+                &nbsp;&nbsp;From: {{ booking.From }}<br/>
+                &nbsp;&nbsp;To: {{ booking.To }}<br/>
+                &nbsp;&nbsp;Phone Number: {{ booking.Phonenumber }}<br/>
+                &nbsp;&nbsp;Email: {{ booking.Email }}<br/>
+                &nbsp;&nbsp;Departure Date: {{ booking.DepartureDate }}<br/>
+                &nbsp;&nbsp;Number of Seats: {{ booking.Noofseats }}<br/>
+                &nbsp;&nbsp;Quotas: {{ booking.Quotas }}<br/>
+                &nbsp;&nbsp;<form method="post" action="{% url 'myapp:cancel' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ booking.pk }}">
+                    <button class="btn btn-danger" style="float:right;border-radius:50%;" type="submit">Cancel</button>
+                </form><br/>
+            </div>
+            <br/><br/>
+        {% endfor %}
+    </div>
+</body>
+</html>
